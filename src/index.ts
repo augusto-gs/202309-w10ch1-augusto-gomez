@@ -1,6 +1,15 @@
 import "dotenv/config";
 import express from "express";
+import morgan from "morgan";
+import { thingsLearnedRouter } from "./features/thingsLearned/routers/thingsLearnedRouter.js";
 
 const app = express();
 
-app.listen(process.env.PORT);
+const port = process.env.PORT ?? 4000;
+
+app.listen(+port);
+
+app.use(morgan("dev"));
+
+app.use("/things", thingsLearnedRouter);
+app.use(express.json());
