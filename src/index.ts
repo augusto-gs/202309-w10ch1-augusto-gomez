@@ -5,12 +5,11 @@ import { thingsLearnedRouter } from "./features/thingsLearned/routers/thingsLear
 
 const app = express();
 
-app.listen(process.env.PORT);
+const port = process.env.PORT ?? 4000;
+
+app.listen(+port);
 
 app.use(morgan("dev"));
 
 app.use("/things", thingsLearnedRouter);
-
-// App.get("/things", (_req, res) => {
-// res.status(200).json({ things: thingsLearned });
-// });
+app.use(express.json());
