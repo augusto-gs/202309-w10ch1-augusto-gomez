@@ -1,24 +1,15 @@
 import { Router } from "express";
 import thingsLearned from "../data/thingsLearned.js";
 import urlNotFound from "../../../middlewares/Error.js";
+import ThingsLearnedController from "../controllers/ThingsLearnedController.js";
 
 export const thingsLearnedRouter = Router();
 
-thingsLearnedRouter.get("/", (_req, res) => {
-  res.status(200).json({ thingsLearned });
-});
+const thingsLearnedController = new ThingsLearnedController();
 
-thingsLearnedRouter.get("/:idThing", (req, res) => {
-  const { idThing } = req.params;
-  const thingsElement = thingsLearned.find((thing) => thing.id === +idThing);
+thingsLearnedRouter.get("/", thingsLearnedController.getThings);
 
-  if (!thingsElement) {
-    res.status(400).json({ error: "Incorrect id" });
-    return;
-  }
-
-  res.status(200).json({ thingsElement });
-});
+thingsLearnedRouter.get("/:idThing", thingsLearnedController.getThing);
 
 thingsLearnedRouter.delete("/:idThing", (req, res) => {
   const { idThing } = req.params;

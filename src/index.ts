@@ -7,7 +7,9 @@ const app = express();
 
 const port = process.env.PORT ?? 4000;
 
-app.listen(+port);
+app.listen(+port, "Localhost", () => {
+  console.log("Listening to port");
+});
 
 app.use(morgan("dev"));
 
